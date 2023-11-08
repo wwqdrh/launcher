@@ -22,7 +22,7 @@ func (a *App) startup(ctx context.Context) {
 
 func (a *App) AppList() []string {
 	// _, res := cli.DefaultCommandWorkspace.AppList(false)
-	return []string{}
+	return []string{"app1", "app2"}
 }
 
 func (a *App) StartApp(name string) string {

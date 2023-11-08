@@ -2,15 +2,19 @@
   import { AppList, StartApp } from "../wailsjs/go/main/App.js";
   import { onMount } from "svelte";
 
-  import Icon from "./Icon.svelte";
+  import Icon from "./ui/Icon.svelte";
   import {
     notify,
+    Modal as IModal,
   } from "https://wwqdrh.github.io/assets/uikit/common.es.js";
+  import Card from "./ui/Card.svelte";
+  import Modal from "./ui/Modal.svelte";
 
   let appList = [];
   let iframeurl = "";
 
   let cont;
+  let openmodal;
 
   function doAppList() {
     AppList().then((result) => (appList = [...result]));
@@ -25,9 +29,16 @@
   onMount(() => {
     doAppList();
     notify({ msg: "a test" });
-    notify({
-      type: "error",
-      msg: "a error test asdjkalsdja dajskldjaklsd adsjkld",
+    new IModal({
+      target: openmodal,
+      props: {
+        handle: document.getElementById("customhandle"),
+        content: (() => {
+          let dom = document.createElement("div");
+          dom.innerHTML = `<p>2</p>`;
+          return dom;
+        })(),
+      },
     });
   });
 </script>
@@ -35,30 +46,15 @@
 <main>
   {#each appList as item}
     <div>
-      <Icon onClick={() => doStartApp(item)} Letter={item} />
+      <Icon
+        onClick={() => document.getElementById("customhandle").click()}
+        Letter={item}
+      />
+      <Card />
     </div>
   {/each}
-  <div bind:this={cont} class="uikit-w-32 uikit-h-32 uikit-shadow-lg">
-    ajdsklasdjlasdjakljdskjdlasdakljdka
-  </div>
-  <!-- <ContextMenu
-    target={cont}
-    menus={[
-      {
-        title: "item1",
-        onClick: (v) => {
-          let selection = window.getSelection();
-          console.log(selection.toString());
-        },
-      },
-      {
-        title: "item2",
-        onClick: (v) => {
-          console.log(v);
-        },
-      },
-    ]}
-  /> -->
+  <div id="customhandle" />
+  <div bind:this={openmodal}>1</div>
   {#if iframeurl}
     <div>
       <iframe title="app" width="400" height="400" src={iframeurl} />
