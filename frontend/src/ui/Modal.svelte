@@ -12,7 +12,7 @@
             props: {
                 handle,
                 content,
-            },
+            }
         });
     });
 </script>

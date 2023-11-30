@@ -7,14 +7,14 @@
     notify,
     Modal as IModal,
   } from "https://wwqdrh.github.io/assets/uikit/common.es.js";
-  import Card from "./ui/Card.svelte";
-  import Modal from "./ui/Modal.svelte";
+  import { Card, Modal, Header, Drawer } from "./ui/index.js";
 
   let appList = [];
   let iframeurl = "";
 
   let cont;
   let openmodal;
+  let elsettingdrawer;
 
   function doAppList() {
     AppList().then((result) => (appList = [...result]));
@@ -44,6 +44,18 @@
 </script>
 
 <main>
+  <div class="black-bg">
+    <Header
+      icon="/logo.svg"
+      menus={[[{ icon: "uil:setting", url: "settings" }]]}
+      onClick={(u) => {
+        if (u == "settings") {
+          elsettingdrawer.toggle();
+        }
+      }}
+    />
+  </div>
+  <Drawer bind:this={elsettingdrawer} />
   {#each appList as item}
     <div>
       <Icon
@@ -64,4 +76,8 @@
 
 <style>
   @import url("https://wwqdrh.github.io/assets/uikit/common.css");
+
+  .black-bg {
+    background-color: black;
+  }
 </style>
