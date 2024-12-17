@@ -1,5 +1,19 @@
 # launcher
 
-# roadmap
+应用启动器，cli程序
 
-cross-platform desktop application, for launch widget app
+## 功能
+
+`应用启动`
+
+- 自定义启动命令
+- 保存应用本地信息到$HOME/.launcher/app.json配置文件中，例如当前版本
+
+`自动更新`
+
+- 每天晚上12点或者第一次打开时检查是否更新了，规则如下
+- 从指定url路径获取最新版本号，如果本地的版本较低，自动从远程地址下载最新可执行文件，然后覆盖到本地目标地址完成更新
+
+`应用保活`
+
+- 定时检查程序是否启动，如果没有则自动执行
